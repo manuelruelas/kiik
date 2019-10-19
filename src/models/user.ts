@@ -1,10 +1,18 @@
-import { Schema, Mongoose, model } from "mongoose";
+import { Schema, model, Document } from "mongoose";
+
+export interface IUser extends Document {
+    name: String;
+    email: String;
+    password: String;
+    active: Boolean;
+}
 
 let userSchema = new Schema({
-    name:{type:String,required: true},
-    email: {type:String, required:true, unique:true},
-    password:{ type:String, required:true},
-    active:{type:Boolean, default:true}
-})
+    name: { type: String, required: true },
+    email: { type: String, required: true, unique: true },
+    password: { type: String, required: true },
+    active: { type: Boolean, default: true }
+});
 
-module.exports = model('User',userSchema);
+
+export default model<IUser>('User', userSchema);
