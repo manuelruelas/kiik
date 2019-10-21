@@ -6,11 +6,13 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "copyhtml": "copyfiles --up 1 src/public/*.html dist",
-    "build": "tsc && npm run copyhtml"
+    "build": "tsc && npm run copyhtml",
+    "serve": "tsc && nodemon dist/index"
   },
-  "author": "",
+  "author": "Manuel Ruelas",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.19.0",
     "express": "^4.17.1",
     "mongoose": "^5.7.5"
   },
