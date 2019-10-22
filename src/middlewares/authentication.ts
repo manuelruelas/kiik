@@ -1,5 +1,5 @@
 import jwt = require('jsonwebtoken');
-import { NextFunction, Response } from 'express';
+import { NextFunction, Response, Request } from 'express';
 import config from '../config/config';
 import RequestWithUser from '../interfaces/requestWithUser';
 import { IUser } from '../models/user';
@@ -15,7 +15,7 @@ let verificationToken = (req: RequestWithUser, res: Response,next:NextFunction)=
             });
             
         }
-        req.user = <IUser>decoded.user;
+        req.user = <IUser>decoded['user'];
         next();
     });
 };
