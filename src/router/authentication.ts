@@ -3,7 +3,6 @@ import user from '../models/user';
 import bcrypt = require('bcrypt');
 import jwt = require('jsonwebtoken');
 import config from '../config/config';
-import verificationToken from "../middlewares/authentication";
 
 
 
