@@ -9,7 +9,7 @@ import verificationToken from "../middlewares/authentication";
 
 let authRoutes = Router();
 
-authRoutes.post('/login',verificationToken, (req: Request, res: Response) => {
+authRoutes.post('/login', (req: Request, res: Response) => {
     let body = req.body;
     user.findOne({ email: body.email }, (err, userDB) => {
         if (err) {
