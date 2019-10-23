@@ -6,11 +6,10 @@ import bcrypt = require('bcrypt');
 const userRoutes = Router();
 
 userRoutes.post('/user', (req: Request, res: Response) => {
-    let user: IUser = new User();
-    user.name = req.body.name;
+    let user: IUser = new User(req.body);
+    
     user.password =bcrypt.hashSync(req.body.password,10);
-    user.email = req.body.email;
-    user.active = true;
+    
     user.save((err, user) => {
         if (err) {
             res.json({
