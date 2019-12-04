@@ -1,15 +1,14 @@
 import { Router, Request, Response } from "express";
 import User, { IUser } from "../models/user";
 import { NativeError } from "mongoose";
-
-
-
+import bcrytp = require('bcrypt');
+import jwt = require('jsonwebtoken');
 const userRoutes = Router();
 
-userRoutes.post('/user', (req: Request, res: Response) => {
+userRoutes.post('/users', (req: Request, res: Response) => {
     let user: IUser = new User();
     user.name = req.body.name;
-    user.password = req.body.password;
+    user.password = bcrytp.hashSync(req.body.password,10);
     user.email = req.body.email;
     user.active = true;
     user.save((err, user) => {
@@ -20,9 +19,15 @@ userRoutes.post('/user', (req: Request, res: Response) => {
             });
             return;
         }
+        let token = jwt.sign({user},'secret-mr',{expiresIn:'48h'});
         res.json({
             ok: true,
-            data: { user }
+            data: {
+                _id: user._id,
+                name: user.name,
+                email: user.email,
+                token
+            }
         });
     })
 
@@ -37,6 +42,7 @@ userRoutes.get('/user', (req: Request, res: Response) => {
             });
             return;
         }
+        let token = jwt
         res.json({
             ok: true,
             data: {
