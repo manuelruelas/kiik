@@ -5,12 +5,13 @@ import bcrytp = require('bcrypt');
 import jwt = require('jsonwebtoken');
 const userRoutes = Router();
 
-userRoutes.post('/users', (req: Request, res: Response) => {
-    let user: IUser = new User();
-    user.name = req.body.name;
+
+
+userRoutes.post('/user', (req: Request, res: Response) => {
+    let user: IUser = new User(req.body);
+    
     user.password = bcrytp.hashSync(req.body.password,10);
-    user.email = req.body.email;
-    user.active = true;
+    
     user.save((err, user) => {
         if (err) {
             res.json({
